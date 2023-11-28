@@ -1,0 +1,20 @@
+{
+    "files.associations": {
+        "*.c": "c",
+        "*.txt": "plaintext",
+        "*.gml": "cpp",
+        "garrafa.h": "c",
+        "stdbool.h": "c",
+        "cvm.h": "c",
+        "stdio.h": "c",
+        "stdlib.h": "c"
+    },
+    "C_Cpp.errorSquiggles": "disabled",
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/home/lilo/Faculdade/EstruturadeDados/POO/output",
+            "binaryPath": "/home/lilo/Faculdade/EstruturadeDados/POO/output/ted",
+            "binaryArgs": []
+        }
+    ]
+}
