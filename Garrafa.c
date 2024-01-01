@@ -10,11 +10,6 @@ bool isTampada()
     return self.this->tampada;
 }
 
-bool polimorfismo()
-{
-    return false;
-}
-
 void abrirGarrafa()
 {
     self.this->tampada = true;
