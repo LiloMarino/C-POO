@@ -1,36 +1,38 @@
 #include <stdio.h>
-#include <stdlib.h>
 
-// Definindo uma estrutura que contém uma função e uma variável de captura
-typedef struct {
-    int (*funcao)(int);
-    int variavelCaptura;
-} Clausura;
+typedef int (*Clausura)(int);
 
-// Função que cria e retorna uma clausura
 Clausura criarClausura(int valorCapturado) {
-    // Definindo uma função interna
     int funcaoInterna(int parametro) {
-        return parametro + valorCapturado;
+        return valorCapturado + parametro;
     }
-
-    // Criando a clausura
-    Clausura clausura;
-    clausura.funcao = funcaoInterna;
-    clausura.variavelCaptura = valorCapturado;
-
-    return clausura;
+    return funcaoInterna;
 }
 
 int main() {
-    // Criando uma clausura com valor de captura 5
     Clausura minhaClausura = criarClausura(5);
-
-    // Chamando a função dentro da clausura
-    int resultado = minhaClausura.funcao(10);
-    resultado = minhaClausura.funcao(5);
-
-    printf("Resultado: %d\n", resultado);
-
+    
+    // Agora, você pode chamar minhaClausura como uma função normal
+    int resultado = minhaClausura(1);
+    printf("Resultado: %d\n", resultado);  // Deve imprimir 6
+    resultado = minhaClausura(2);
+    printf("Resultado: %d\n", resultado);  // Deve imprimir 7
+    resultado = minhaClausura(3);
+    printf("Resultado: %d\n", resultado);  // Deve imprimir 8
+    resultado = minhaClausura(4);
+    printf("Resultado: %d\n", resultado);  // Deve imprimir 9
+    
+    minhaClausura = criarClausura(10);
+    resultado = minhaClausura(1);
+    printf("Resultado: %d\n", resultado);  // Deve imprimir 11
+    resultado = minhaClausura(2);
+    printf("Resultado: %d\n", resultado);  // Deve imprimir 12
+    resultado = minhaClausura(3);
+    printf("Resultado: %d\n", resultado);  // Deve imprimir 13
+    resultado = minhaClausura(4);
+    printf("Resultado: %d\n", resultado);  // Deve imprimir 14
+    
+    
+    
     return 0;
 }
