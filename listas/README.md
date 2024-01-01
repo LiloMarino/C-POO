@@ -1,0 +1,1 @@
+Baseado em python, busca reproduzir as funcionalidade do map, filter e reduce, de forma que se assemelhe a forma orientada a objeto de se fazer

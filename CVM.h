@@ -3,6 +3,7 @@
 
 typedef int (*Print)(const char *String, ...);
 typedef int (*PrintLn)(const char *String);
+typedef void *Objeto;
 
 struct Stout
 {
@@ -17,8 +18,6 @@ struct StSystem
 
 extern struct StSystem System;
 
-
 void CVM();
-
 
 #endif
