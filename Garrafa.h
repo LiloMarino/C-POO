@@ -5,7 +5,7 @@
 
 typedef struct StGarrafa
 {
-    struct StGarrafa *this;
+    struct StGarrafa *self;
     bool tampada;
     int litros;
     bool (*isTampada)();

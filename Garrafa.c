@@ -3,50 +3,50 @@
 #include <stdlib.h>
 
 
-Garrafa self;
+Garrafa *self;
 
 bool isTampada()
 {
-    return self.this->tampada;
+    return self->tampada;
 }
 
 void abrirGarrafa()
 {
-    self.this->tampada = true;
+    self->tampada = true;
 }
 
 void fecharGarrafa()
 {
-    self.this->tampada = false;
+    self->tampada = false;
 }
 
 void setLitros(int L)
 {
 
-    self.this->litros = L;
+    self->litros = L;
 }
 
 int getLitros()
 {
-    return self.this->litros;
+    return self->litros;
 }
 
 Garrafa newGarrafa()
 {
-    Garrafa *this = calloc(1, sizeof(Garrafa));
-    this->this = this;
-    this->tampada = true;
-    this->isTampada = isTampada;
-    this->abrirGarrafa = abrirGarrafa;
-    this->fecharGarrafa = fecharGarrafa;
-    this->setLitros = setLitros;
-    this->getLitros = getLitros;
-    return *this;
+    Garrafa *self = calloc(1, sizeof(Garrafa));
+    self->self = self;
+    self->tampada = true;
+    self->isTampada = isTampada;
+    self->abrirGarrafa = abrirGarrafa;
+    self->fecharGarrafa = fecharGarrafa;
+    self->setLitros = setLitros;
+    self->getLitros = getLitros;
+    return *self;
 }
 
 
 Garrafa This(Garrafa g)
 {
-    self = g;
-    return self;
+    self = g.self;
+    return *self;
 }
