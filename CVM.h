@@ -16,8 +16,10 @@ struct StSystem
     struct Stout out;
 };
 
+extern Objeto self;
 extern struct StSystem System;
 
 void CVM();
+Objeto This(Objeto o);
 
 #endif

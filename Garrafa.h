@@ -3,7 +3,7 @@
 
 #include <stdbool.h>
 
-typedef struct StGarrafa
+struct StGarrafa
 {
     struct StGarrafa *self;
     bool tampada;
@@ -14,10 +14,9 @@ typedef struct StGarrafa
     void (*setLitros)(int);
     int (*getLitros)();
 
-} Garrafa; // Atributos e Métodos públicos
+}; // Atributos e Métodos públicos
+typedef struct StGarrafa * Garrafa;
 
 Garrafa newGarrafa(); // Static e Público
-
-Garrafa This(Garrafa g);
 
 #endif

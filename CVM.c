@@ -5,6 +5,7 @@
 #include <stdarg.h>
 
 struct StSystem System;
+Objeto self;
 
 int println(const char *String)
 {
@@ -20,3 +21,8 @@ void CVM()
     System.out.println = println;
 }
 
+Objeto This(Objeto o)
+{
+    self = o;
+    return o;
+}

@@ -2,38 +2,34 @@
 #include "Garrafa.h"
 #include <stdlib.h>
 
-
-Garrafa *self;
-
 bool isTampada()
 {
-    return self->tampada;
+    return ((Garrafa)self)->tampada;
 }
 
 void abrirGarrafa()
 {
-    self->tampada = true;
+    ((Garrafa)self)->tampada = true;
 }
 
 void fecharGarrafa()
 {
-    self->tampada = false;
+    ((Garrafa)self)->tampada = false;
 }
 
 void setLitros(int L)
 {
-
-    self->litros = L;
+    ((Garrafa)self)->litros = L;
 }
 
 int getLitros()
 {
-    return self->litros;
+    return ((Garrafa)self)->litros;
 }
 
 Garrafa newGarrafa()
 {
-    Garrafa *self = calloc(1, sizeof(Garrafa));
+    Garrafa self = calloc(1, sizeof(struct StGarrafa));
     self->self = self;
     self->tampada = true;
     self->isTampada = isTampada;
@@ -41,12 +37,5 @@ Garrafa newGarrafa()
     self->fecharGarrafa = fecharGarrafa;
     self->setLitros = setLitros;
     self->getLitros = getLitros;
-    return *self;
-}
-
-
-Garrafa This(Garrafa g)
-{
-    self = g.self;
-    return *self;
+    return self;
 }
