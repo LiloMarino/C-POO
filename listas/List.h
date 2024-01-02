@@ -4,10 +4,13 @@
 #include "../CVM.h"
 #include "Iterator.h"
 
+typedef List Iterable;
 typedef struct StList List;
+
 struct StList
 {
     List *self;                        // Ponteiro para ela mesma
+    Objeto *__list__;                 // Ponteiro para a lista
     List (*copy)();                    // Gera uma cópia rasa da lista
     void (*append)(Objeto);            // Adiciona o objeto no final da lista
     void (*extend)(Iterable);          // Concatena as listas
@@ -21,6 +24,8 @@ struct StList
     Iterator (*__reversed__)();        // Retorna o iterador reverso da lista
 };
 
-typedef List Iterable;
+List newList();
+
+List This(List l);
 
 #endif
