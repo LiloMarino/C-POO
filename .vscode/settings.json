@@ -17,6 +17,15 @@
         "string_view": "c",
         "initializer_list": "c",
         "stdbool.h": "c",
-        "utility": "c"
-    }
+        "utility": "c",
+        "stdint.h": "c",
+        "algorithm": "c"
+    },
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/home/lilo/Faculdade/C-POO/output",
+            "binaryPath": "/home/lilo/Faculdade/C-POO/output/ted",
+            "binaryArgs": []
+        }
+    ]
 }

@@ -292,3 +292,35 @@ Enumerate *enumerate(Iterator __iterator)
     __enumer = 0;
     return NULL;
 }
+
+void print_list(List l, Printer p)
+{
+    Iterator it = iter(l);
+    print_generic("[");
+    for (Objeto obj = next(it); obj != NULL; next(it))
+    {
+        p(obj);
+        print_generic(", ");
+    }
+    print_generic("]\n");
+}
+
+void print_enum_list(Iterator __iterator, Printer p)
+{
+    Enumerate *e = enumerate(__iterator);
+    print_generic("[");
+    while (e)
+    {
+        print_generic("(");
+        p(e->obj);
+        print_generic(", ");
+        print_generic(e->index);
+        print_generic(")");
+        e = enumerate(__iterator);
+        if (!e)
+        {
+            print_generic(", ");
+        }
+    }
+    print_generic("]\n");
+}

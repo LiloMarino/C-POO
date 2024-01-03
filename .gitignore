@@ -1,2 +1,9 @@
 output/
 logs/
+
+# Arquivos de compilação e objetos
+*.o
+*.obj
+*.out
+*.exe
+*.dll
