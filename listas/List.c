@@ -246,13 +246,13 @@ size_t __len__()
 
 Iterator __iter__()
 {
-    Iterator it = newIterator(true);
+    Iterator it = newIterator(false);
     return it;
 }
 
 Iterator __reversed__()
 {
-    Iterator it = newIterator(false);
+    Iterator it = newIterator(true);
     return it;
 }
 
@@ -297,12 +297,12 @@ void print_list(List l, Printer p)
 {
     Iterator it = iter(l);
     print_generic("[");
-    for (Objeto obj = next(it); obj != NULL; next(it))
+    for (Objeto obj = next(it); obj != NULL; print_generic(", "))
     {
         p(obj);
-        print_generic(", ");
+        obj = next(it);
     }
-    print_generic("]\n");
+    print_generic("\b\b]\n");
 }
 
 void print_enum_list(Iterator __iterator, Printer p)

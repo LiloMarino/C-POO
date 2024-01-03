@@ -30,14 +30,20 @@ typedef struct StIter
 Objeto __next__()
 {
     Iter *iter = ((Iterator)self)->__iterator__;
-    Objeto obj = ((Node *)iter->__current__)->obj;
+    if (iter->__current__ == NULL)
+    {
+        /* StopIteration */
+        return NULL;
+    }
+    
+    Objeto obj = iter->__current__->obj;
     if (iter->__reversed__)
     {
-        iter->__current__ = ((Node *)iter->__current__)->ant;
+        iter->__current__ = iter->__current__->ant;
     }
     else
     {
-        iter->__current__ = ((Node *)iter->__current__)->prox;
+        iter->__current__ = iter->__current__->prox;
     }
     return obj;
 }

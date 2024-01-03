@@ -47,26 +47,26 @@ enum t_typename
     ENUM_OTHER
 };
 
-#define print_generic(x) _Generic((x),                                            \
-    _Bool: printf("%s", TYPENAME_BOOL, ((x) ? "true" : "false")),                 \
-    unsigned char: printf("%c", TYPENAME_UNSIGNED_CHAR, (x)),                     \
-    char: printf("%c", TYPENAME_CHAR, (x)),                                       \
-    signed char: printf("%c", TYPENAME_SIGNED_CHAR, (x)),                         \
-    short int: printf("%hd", TYPENAME_SHORT_INT, (x)),                            \
-    unsigned short int: printf("%hu", TYPENAME_UNSIGNED_CHORT_INT, (x)),          \
-    int: printf("%d", TYPENAME_INT, (x)),                                         \
-    unsigned int: printf("%u", TYPENAME_UNSIGNED_INT, (x)),                       \
-    long int: printf("%ld", TYPENAME_LONG_INT, (x)),                              \
-    unsigned long int: printf("%lu", TYPENAME_UNSIGNED_LONG_INT, (x)),            \
-    long long int: printf("%lld", TYPENAME_LONG_LONG_INT, (x)),                   \
-    unsigned long long int: printf("%llu", TYPENAME_UNSIGNED_LONG_LONG_INT, (x)), \
-    float: printf("%f", TYPENAME_FLOAT, (x)),                                     \
-    double: printf("%lf", TYPENAME_DOUBLE, (x)),                                  \
-    long double: printf("%Lf", TYPENAME_LONG_DOUBLE, (x)),                        \
-    char *: printf("%s", TYPENAME_POINTER_TO_CHAR, (x)),                          \
-    void *: printf("%p", TYPENAME_POINTER_TO_VOID, (x)),                          \
-    int *: printf("%p", TYPENAME_POINTER_TO_INT, (x)),                            \
-    default: printf("<unsupported type>", TYPENAME_OTHER))
+#define print_generic(x) _Generic((x),             \
+    _Bool: printf("%s", ((x) ? "true" : "false")), \
+    unsigned char: printf("%c", (x)),              \
+    char: printf("%c", (x)),                       \
+    signed char: printf("%c", (x)),                \
+    short int: printf("%hd", (x)),                 \
+    unsigned short int: printf("%hu", (x)),        \
+    int: printf("%d", (x)),                        \
+    unsigned int: printf("%u", (x)),               \
+    long int: printf("%ld", (x)),                  \
+    unsigned long int: printf("%lu", (x)),         \
+    long long int: printf("%lld", (x)),            \
+    unsigned long long int: printf("%llu", (x)),   \
+    float: printf("%f", (x)),                      \
+    double: printf("%lf", (x)),                    \
+    long double: printf("%Lf", (x)),               \
+    char *: printf("%s", (x)),                     \
+    void *: printf("%p", (x)),                     \
+    int *: printf("%p", (x)),                      \
+    default: printf("<unsupported type>"))
 
 typedef void *Objeto;
 typedef int (*Print)(const char *String, ...);
