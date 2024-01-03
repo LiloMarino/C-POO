@@ -16,6 +16,7 @@
         "vector": "c",
         "string_view": "c",
         "initializer_list": "c",
-        "stdbool.h": "c"
+        "stdbool.h": "c",
+        "utility": "c"
     }
 }
