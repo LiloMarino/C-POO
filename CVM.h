@@ -45,6 +45,8 @@ void CVM();
 
 Objeto This(Objeto o);
 
+void linkToGarbage(Free f, Objeto obj);
+
 void GarbageCollector();
 
 #endif

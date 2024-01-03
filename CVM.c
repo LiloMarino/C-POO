@@ -5,7 +5,7 @@
 #include <stdarg.h>
 
 struct StSystem System;
-Collector collector;
+Collector collector = {0};
 Objeto self;
 
 int println(const char *String)
@@ -26,6 +26,13 @@ Objeto This(Objeto o)
 {
     self = o;
     return o;
+}
+
+void linkToGarbage(Free f, Objeto obj)
+{
+    collector.collector = realloc(collector.collector,sizeof(struct StFree));
+    collector.collector[collector.size].f = f;
+    collector.collector[collector.size].obj = obj;
 }
 
 void GarbageCollector()
