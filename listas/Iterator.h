@@ -2,12 +2,17 @@
 #define ITERATOR_H
 
 #include "../CVM.h"
+#include <stdbool.h>
 
-typedef struct StIterator
+struct StIterator
 {
-    Iterator *__iter__;           // Ponteiro para ele mesmo
-    Objeto *__iterator__;       // Ponteiro para ele mesmo
+    struct StIterator *__iter__;           // Ponteiro para ele mesmo
+    Objeto __iterator__;       // Ponteiro para ele mesmo
     Objeto (*__next__)();         // Retorna o elemento da lista e avança
-}Iterator;
+};
+
+typedef struct StIterator* Iterator;
+
+Iterator newIterator(bool __reversed__);
 
 #endif
