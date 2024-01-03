@@ -1,7 +1,9 @@
-#include "CVM.h"
+#include "../CVM.h"
+#include "Built-in.h"
 #include "Iterator.h"
 #include "List.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 typedef struct StNode
 {
@@ -14,19 +16,23 @@ typedef struct StListaEnc
 {
     Node *inicio;
     Node *final;
-    int length;
+    size_t length;
 } ListaEnc;
 
-List *self;
+size_t __enumer = 0;
 
 List copy()
 {
     /* Itera copiando */
+    Iterator it = iter(self);
+    for (Objeto o = next(it); o != NULL; next(it))
+    {
+    }
 }
 
 void append(Objeto obj)
 {
-    ListaEnc *lista = self->__list__;
+    ListaEnc *lista = ((List)self)->__list__;
     Node *aux = calloc(1, sizeof(Node));
     aux->obj = obj;
 
@@ -48,11 +54,15 @@ void append(Objeto obj)
 void extend(List l)
 {
     /* Copia a lista e concatena as listas fazendo jogo de ponteiro */
+    Iterator it = iter(self);
+    for (Objeto o = next(it); o != NULL; next(it))
+    {
+    }
 }
 
 Objeto pop(int index)
 {
-    ListaEnc *lista = self->__list__;
+    ListaEnc *lista = ((List)self)->__list__;
     if (lista->inicio == NULL)
     {
         printf("IndexError: pop from empty list\n");
@@ -78,50 +88,105 @@ Objeto pop(int index)
     return obj;
 }
 
-int index(Objeto obj)
+int index(Objeto obj, Comparator c)
 {
     /* Itera e retorna */
+    Iterator it = iter(self);
+    size_t i = 0;
+    for (Objeto o = next(it); o != NULL; next(it))
+    {
+        if (c(o))
+        {
+            return i;
+        }
+        i++;
+    }
 }
 
-int count(Objeto obj)
+int count(Objeto obj, Comparator c)
 {
     /* Itera contando*/
+    Iterator it = iter(self);
+    size_t i = 0;
+    for (Objeto o = next(it); o != NULL; next(it))
+    {
+        if (c(o))
+        {
+            i++;
+        }
+    }
+    return i;
 }
 
 void insert(int index, Objeto obj)
 {
     /* Itera e insere */
+    Node* iterator;
+    size_t i = 0;
+    for (iterator = ((ListaEnc*)((List)self)->__list__)->inicio;iterator != NULL; iterator = iterator->prox)
+    {
+        if (index == i)
+        {
+            Node *aux = calloc(1, sizeof(Node));
+            aux->obj = obj;
+            if (iterator->ant != NULL)
+            {
+                iterator->ant->prox = aux;
+            }
+            if (iterator->prox != NULL)
+            {
+                iterator->prox->ant = aux;
+            }
+            iterator->ant = aux;
+            aux->prox = iterator;            
+        }
+        i++
+    }
+    
 }
 
-void remove(Objeto obj)
+void removeitem(Objeto obj)
 {
     /* Itera e remove */
+    Node* iterator;
 }
 
-int __len__()
+size_t __len__()
 {
-    return ((ListaEnc *)(self->__list__))->length;
+    return ((ListaEnc *)(((List)self)->__list__))->length;
 }
 
 Iterator __iter__()
 {
-    Iterator it = newIterator();
+    Iterator it = newIterator(true);
+    return it;
 }
 
 Iterator __reversed__()
 {
-    Iterator it = newIterator();
+    Iterator it = newIterator(false);
+    return it;
 }
 
 List newList()
 {
-    List *this = calloc(1, sizeof(List));
+    List this = calloc(1, sizeof(struct StList));
     this->self = this;
-    return *this;
+    return this;
 }
 
-List This(List l)
+Enumerate *enumerate(Iterable __iterable, Iterator __iterator)
 {
-    self = l.self;
-    return *self;
+    // Iterator it = iter(self); Já vem como parâmetro
+    Enumerate temp;
+    Enumerate *e = &temp;
+    Objeto obj = next(__iterator);
+    if (obj)
+    {
+        e->index = __enumer;
+        e->obj = obj;
+        return e;
+    }
+    __enumer = 0;
+    return NULL;
 }

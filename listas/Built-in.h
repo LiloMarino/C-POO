@@ -9,7 +9,7 @@ typedef Objeto (*Reduce)(Objeto acumulador, Objeto o);
 
 Objeto next(Iterator i);
 
-int len(Iterable i);
+size_t len(Iterable i);
 
 Iterator iter(Iterable i);
 

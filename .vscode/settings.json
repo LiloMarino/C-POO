@@ -6,6 +6,7 @@
         "*.gml": "cpp",
         "stdlib.h": "c",
         "list.h": "c",
-        "iterator.h": "c"
+        "iterator.h": "c",
+        "cvm.h": "c"
     }
 }

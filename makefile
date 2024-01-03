@@ -2,7 +2,7 @@
 PROJETO = ted
 
 # Lista de arquivos fontes
-FONTES = CVM.c main.c Garrafa.c
+FONTES = CVM.c listas/main.c listas/List.c listas/Iterator.c listas/Built-in.c
 
 # Lista de arquivos de cabeçalho correspondentes aos arquivos fontes
 HEADERS = $(filter-out main.h, $(FONTES:.c=.h))
@@ -16,6 +16,7 @@ LOGS = logs/
 
 # Cria a pasta de saída se ela não existir
 $(shell mkdir -p $(OUTPUT) $(OUTPUT)Bibliotecas)
+$(shell mkdir -p $(OUTPUT) $(OUTPUT)listas)
 $(shell mkdir -p $(LOGS))
 
 # Arquivos objeto na pasta de saída
