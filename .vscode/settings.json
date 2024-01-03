@@ -7,6 +7,15 @@
         "stdlib.h": "c",
         "list.h": "c",
         "iterator.h": "c",
-        "cvm.h": "c"
+        "cvm.h": "c",
+        "array": "c",
+        "deque": "c",
+        "list": "c",
+        "string": "c",
+        "unordered_map": "c",
+        "vector": "c",
+        "string_view": "c",
+        "initializer_list": "c",
+        "stdbool.h": "c"
     }
 }

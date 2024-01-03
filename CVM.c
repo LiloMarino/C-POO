@@ -5,6 +5,7 @@
 #include <stdarg.h>
 
 struct StSystem System;
+Collector collector;
 Objeto self;
 
 int println(const char *String)
@@ -25,4 +26,13 @@ Objeto This(Objeto o)
 {
     self = o;
     return o;
+}
+
+void GarbageCollector()
+{
+    for (size_t i = 0; i < collector.size; i++)
+    {
+        collector.collector[i].f(collector.collector[i].obj);
+    }
+    free(collector.collector);
 }

@@ -24,10 +24,13 @@ size_t __enumer = 0;
 List copy()
 {
     /* Itera copiando */
+    List l = newList();
     Iterator it = iter(self);
     for (Objeto o = next(it); o != NULL; next(it))
     {
+        ((List)This(l))->append(o);
     }
+    return l;
 }
 
 void append(Objeto obj)
@@ -54,53 +57,104 @@ void append(Objeto obj)
 void extend(List l)
 {
     /* Copia a lista e concatena as listas fazendo jogo de ponteiro */
-    Iterator it = iter(self);
-    for (Objeto o = next(it); o != NULL; next(it))
+    ListaEnc *lista1 = ((List)self)->__list__;
+    ListaEnc *lista2 = (((List)l)->copy())->__list__;
+    if (lista1->inicio == NULL)
     {
+        lista1->inicio = lista2->inicio;
+        lista1->final = lista2->final;
     }
+    else
+    {
+        Node *q = lista1->final;
+        q->prox = lista2->inicio;
+        lista2->inicio->ant = q;
+        lista1->final = lista2->final;
+    }
+    lista1->length += lista2->length;
+    free(lista2);
 }
 
-Objeto pop(int index)
+Objeto pop(long int index)
 {
     ListaEnc *lista = ((List)self)->__list__;
+    Node *iterator;
     if (lista->inicio == NULL)
     {
         printf("IndexError: pop from empty list\n");
         exit(1);
     }
-
-    Node *aux = lista->final;
-    lista->final = aux->ant;
-
-    if (lista->final != NULL)
+    if (index < 0)
     {
-        lista->final->prox = NULL;
+        iterator = lista->final;
+        lista->final = iterator->ant;
+
+        if (lista->final != NULL)
+        {
+            lista->final->prox = NULL;
+        }
+        else
+        {
+            lista->inicio = NULL;
+        }
     }
     else
     {
-        lista->inicio = NULL;
+        size_t i = 0;
+        for (iterator = lista->inicio; iterator != NULL; iterator = iterator->prox)
+        {
+            if (index == i)
+            {
+                if (iterator == lista->inicio)
+                {
+                    if (iterator->prox != NULL)
+                    {
+                        lista->inicio = iterator->prox;
+                        iterator->prox->ant = iterator->ant;
+                    }
+                    else
+                    {
+                        lista->inicio = NULL;
+                        lista->final = NULL; // Atualiza também o ponteiro final quando a lista fica vazia
+                    }
+                }
+                else if (iterator->prox != NULL)
+                {
+                    iterator->prox->ant = iterator->ant;
+                    iterator->ant->prox = iterator->prox;
+                }
+                else
+                {
+                    iterator->ant->prox = NULL;
+                    lista->final = iterator->ant; // Atualiza o ponteiro final quando o último elemento é removido
+                }
+                break;
+            }
+            i++;
+        }
     }
-
-    Objeto obj = aux->obj;
-    free(aux);
+    Objeto obj = iterator->obj;
+    free(iterator);
     lista->length--;
 
     return obj;
 }
 
-int index(Objeto obj, Comparator c)
+int indexOf(Objeto obj, Comparator c)
 {
     /* Itera e retorna */
     Iterator it = iter(self);
     size_t i = 0;
     for (Objeto o = next(it); o != NULL; next(it))
     {
-        if (c(o))
+        if (c(o, obj))
         {
             return i;
         }
         i++;
     }
+    printf("ValueError: \'%p\' is not in list\n", obj);
+    exit(1);
 }
 
 int count(Objeto obj, Comparator c)
@@ -110,7 +164,7 @@ int count(Objeto obj, Comparator c)
     size_t i = 0;
     for (Objeto o = next(it); o != NULL; next(it))
     {
-        if (c(o))
+        if (c(o, obj))
         {
             i++;
         }
@@ -118,37 +172,71 @@ int count(Objeto obj, Comparator c)
     return i;
 }
 
-void insert(int index, Objeto obj)
+void insert(size_t index, Objeto obj)
 {
     /* Itera e insere */
-    Node* iterator;
+    Node *iterator;
+    ListaEnc *lista = ((List)self)->__list__;
     size_t i = 0;
-    for (iterator = ((ListaEnc*)((List)self)->__list__)->inicio;iterator != NULL; iterator = iterator->prox)
+    for (iterator = lista->inicio; iterator != NULL; iterator = iterator->prox)
     {
         if (index == i)
         {
             Node *aux = calloc(1, sizeof(Node));
             aux->obj = obj;
-            if (iterator->ant != NULL)
-            {
-                iterator->ant->prox = aux;
-            }
-            if (iterator->prox != NULL)
-            {
-                iterator->prox->ant = aux;
-            }
+            aux->prox = iterator;
             iterator->ant = aux;
-            aux->prox = iterator;            
+            aux->ant = iterator->ant;
+            if (aux->ant != NULL)
+            {
+                aux->ant->prox = aux;
+            }
+            else
+            {
+                lista->inicio = aux;
+            }
+            lista->length++;
         }
-        i++
+        i++;
     }
-    
 }
 
-void removeitem(Objeto obj)
+void removeItem(Objeto obj, Comparator c)
 {
     /* Itera e remove */
-    Node* iterator;
+    Node *iterator;
+    ListaEnc *lista = ((List)self)->__list__;
+    for (iterator = lista->inicio; iterator != NULL; iterator = iterator->prox)
+    {
+        if (c(iterator->obj, obj))
+        {
+            if (iterator == lista->inicio)
+            {
+                if (iterator->prox != NULL)
+                {
+                    lista->inicio = iterator->prox;
+                    iterator->prox->ant = iterator->ant;
+                }
+                else
+                {
+                    lista->inicio = NULL;
+                    lista->final = NULL; // Atualiza também o ponteiro final quando a lista fica vazia
+                }
+            }
+            else if (iterator->prox != NULL)
+            {
+                iterator->prox->ant = iterator->ant;
+                iterator->ant->prox = iterator->prox;
+            }
+            else
+            {
+                iterator->ant->prox = NULL;
+                lista->final = iterator->ant; // Atualiza o ponteiro final quando o último elemento é removido
+            }
+            lista->length--;
+            free(iterator);
+        }
+    }
 }
 
 size_t __len__()
@@ -170,12 +258,25 @@ Iterator __reversed__()
 
 List newList()
 {
+    ListaEnc *list = calloc(1, sizeof(ListaEnc));
     List this = calloc(1, sizeof(struct StList));
     this->self = this;
+    this->__list__ = list;
+    this->copy = copy;
+    this->append = append;
+    this->extend = extend;
+    this->pop = pop;
+    this->index = indexOf;
+    this->count = count;
+    this->insert = insert;
+    this->remove = removeItem;
+    this->__len__ = __len__;
+    this->__iter__ = __iter__;
+    this->__reversed__ = __reversed__;
     return this;
 }
 
-Enumerate *enumerate(Iterable __iterable, Iterator __iterator)
+Enumerate *enumerate(Iterator __iterator)
 {
     // Iterator it = iter(self); Já vem como parâmetro
     Enumerate temp;
@@ -185,6 +286,7 @@ Enumerate *enumerate(Iterable __iterable, Iterator __iterator)
     {
         e->index = __enumer;
         e->obj = obj;
+        __enumer++;
         return e;
     }
     __enumer = 0;
