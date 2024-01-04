@@ -22,12 +22,14 @@ int main()
     print_list(l1,printInt);
     
     /* Copy */
-    // List l2 = ((List)This(l1))->copy();
-    // print_list(l1,printInt);
-    // print_list(l2,printInt);
+    List l2 = ((List)This(l1))->copy();
+    print_list(l1,printInt);
+    print_list(l2,printInt);
 
-    // /* Extend */
-    // ((List)This(l1))->extend(l2);
-    // print_list(l1,printInt);
-    // print_list(l2,printInt);
+    /* Extend */
+    ((List)This(l1))->extend(l2);
+    print_list(l1,printInt);
+    print_list(l2,printInt);
+    
+    GarbageCollector();
 }

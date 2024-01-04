@@ -19,7 +19,8 @@
         "stdbool.h": "c",
         "utility": "c",
         "stdint.h": "c",
-        "algorithm": "c"
+        "algorithm": "c",
+        "numbers": "c"
     },
     "makefile.launchConfigurations": [
         {

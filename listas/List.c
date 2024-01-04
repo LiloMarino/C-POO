@@ -26,7 +26,7 @@ List copy()
     /* Itera copiando */
     List l = newList();
     Iterator it = iter(self);
-    for (Objeto o = next(it); o != NULL; next(it))
+    for (Objeto o = next(it); o != NULL; o = next(it))
     {
         ((List)This(l))->append(o);
     }
@@ -145,7 +145,7 @@ int indexOf(Objeto obj, Comparator c)
     /* Itera e retorna */
     Iterator it = iter(self);
     size_t i = 0;
-    for (Objeto o = next(it); o != NULL; next(it))
+    for (Objeto o = next(it); o != NULL; o = next(it))
     {
         if (c(o, obj))
         {
@@ -162,7 +162,7 @@ int count(Objeto obj, Comparator c)
     /* Itera contando*/
     Iterator it = iter(self);
     size_t i = 0;
-    for (Objeto o = next(it); o != NULL; next(it))
+    for (Objeto o = next(it); o != NULL; o = next(it))
     {
         if (c(o, obj))
         {
@@ -297,12 +297,16 @@ void print_list(List l, Printer p)
 {
     Iterator it = iter(l);
     print_generic("[");
-    for (Objeto obj = next(it); obj != NULL; print_generic(", "))
+    for (Objeto obj = next(it); obj != NULL;)
     {
         p(obj);
         obj = next(it);
+        if (obj)
+        {
+            print_generic(", ");
+        }
     }
-    print_generic("\b\b]\n");
+    print_generic("]\n");
 }
 
 void print_enum_list(Iterator __iterator, Printer p)
