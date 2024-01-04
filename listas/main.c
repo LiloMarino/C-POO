@@ -1,4 +1,5 @@
 #include "../CVM.h"
+#include "Built-in.h"
 #include "List.h"
 #include <stdio.h>
 
@@ -31,5 +32,8 @@ int main()
     print_list(l1,printInt);
     print_list(l2,printInt);
     
+    /* Enumerate */
+    print_enum_list(iter(l1),printInt);
+
     GarbageCollector();
 }

@@ -279,15 +279,14 @@ List newList()
 Enumerate *enumerate(Iterator __iterator)
 {
     // Iterator it = iter(self); Já vem como parâmetro
-    Enumerate temp;
-    Enumerate *e = &temp;
+    static Enumerate e;
     Objeto obj = next(__iterator);
     if (obj)
     {
-        e->index = __enumer;
-        e->obj = obj;
+        e.index = __enumer;
+        e.obj = obj;
         __enumer++;
-        return e;
+        return &e;
     }
     __enumer = 0;
     return NULL;
@@ -321,7 +320,7 @@ void print_enum_list(Iterator __iterator, Printer p)
         print_generic(e->index);
         print_generic(")");
         e = enumerate(__iterator);
-        if (!e)
+        if (e)
         {
             print_generic(", ");
         }
