@@ -30,10 +30,18 @@ Objeto This(Objeto o)
 
 void linkToGarbage(Free f, Objeto obj)
 {
-    collector.collector = realloc(collector.collector,sizeof(struct StFree));
-    collector.collector[collector.size].f = f;
-    collector.collector[collector.size].obj = obj;
+    struct StFree *temp = realloc(collector.collector, (collector.size + 1) * sizeof(struct StFree));
+    if (temp != NULL) {
+        collector.collector = temp;
+        collector.collector[collector.size].f = f;
+        collector.collector[collector.size].obj = obj;
+        collector.size++;
+    } else {
+        // Tratar falha na alocação de memória
+        printf("Erro ao alocar memória.\n");
+    }
 }
+
 
 void GarbageCollector()
 {

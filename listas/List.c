@@ -21,6 +21,27 @@ typedef struct StListaEnc
 
 size_t __enumer = 0;
 
+void killLst(Objeto l)
+{
+    Node *rmv, *p;
+    ListaEnc *lista = l;
+
+    rmv = lista->inicio;
+    p = lista->inicio;
+
+    while (p != NULL)
+    {
+        p = p->prox;
+        free(rmv);
+        rmv = p;
+    }
+
+    lista->inicio = NULL;
+    lista->final = NULL;
+    lista->length = 0;
+    free(lista);
+}
+
 List copy()
 {
     /* Itera copiando */
@@ -259,7 +280,9 @@ Iterator __reversed__()
 List newList()
 {
     ListaEnc *list = calloc(1, sizeof(ListaEnc));
+    linkToGarbage(killLst, list);
     List this = calloc(1, sizeof(struct StList));
+    linkToGarbage(free, this);
     this->self = this;
     this->__list__ = list;
     this->copy = copy;

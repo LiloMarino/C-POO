@@ -20,7 +20,8 @@
         "utility": "c",
         "stdint.h": "c",
         "algorithm": "c",
-        "numbers": "c"
+        "numbers": "c",
+        "built-in.h": "c"
     },
     "makefile.launchConfigurations": [
         {

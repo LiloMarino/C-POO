@@ -6,7 +6,7 @@
 int printInt(Objeto obj)
 {
     int i = *((int *)obj);
-    print_generic(i);
+    return print_generic(i);
 }
 
 int main()

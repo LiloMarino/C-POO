@@ -51,6 +51,7 @@ Objeto __next__()
 Iterator newIterator(bool __reversed__)
 {
     Iter *iter = malloc(sizeof(Iter));
+    linkToGarbage(free,iter);
     iter->__reversed__ = __reversed__;
     if (__reversed__)
     {
@@ -61,9 +62,9 @@ Iterator newIterator(bool __reversed__)
         iter->__current__ = ((ListaEnc *)((List)self)->__list__)->inicio;
     }
     Iterator it = malloc(sizeof(struct StIterator));
+    linkToGarbage(free,it);
     it->__iter__ = it;
     it->__iterator__ = iter;
     it->__next__ = __next__;
-
     return it;
 }

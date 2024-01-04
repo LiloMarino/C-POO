@@ -67,7 +67,7 @@ enum t_typename
     void *: printf("%p", (x)),                     \
     int *: printf("%p", (x)),                      \
     default: printf("<unsupported type>"))
-
+// int print_generic();
 typedef void *Objeto;
 typedef int (*Print)(const char *String, ...);
 typedef int (*PrintLn)(const char *String);
@@ -100,8 +100,8 @@ struct StFree
 
 typedef struct StCollector
 {
-    struct StFree *collector;
     size_t size;
+    struct StFree *collector;
 } Collector;
 
 extern Objeto self;
