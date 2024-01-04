@@ -49,9 +49,7 @@ enum t_typename
 
 #define print_generic(x) _Generic((x),             \
     _Bool: printf("%s", ((x) ? "true" : "false")), \
-    unsigned char: printf("%c", (x)),              \
     char: printf("%c", (x)),                       \
-    signed char: printf("%c", (x)),                \
     short int: printf("%hd", (x)),                 \
     unsigned short int: printf("%hu", (x)),        \
     int: printf("%d", (x)),                        \
@@ -67,6 +65,7 @@ enum t_typename
     void *: printf("%p", (x)),                     \
     int *: printf("%p", (x)),                      \
     default: printf("<unsupported type>"))
+
 // int print_generic();
 typedef void *Objeto;
 typedef int (*Print)(const char *String, ...);

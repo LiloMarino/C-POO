@@ -2,7 +2,7 @@
 PROJETO = ted
 
 # Lista de arquivos fontes
-FONTES = CVM.c listas/main.c listas/List.c listas/Iterator.c listas/Built-in.c
+FONTES = listas/main.c listas/List.c listas/Iterator.c listas/Built-in.c CVM.c
 
 # Lista de arquivos de cabeçalho correspondentes aos arquivos fontes
 HEADERS = $(filter-out main.h, $(FONTES:.c=.h))

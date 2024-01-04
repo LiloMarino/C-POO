@@ -33,7 +33,12 @@ int main()
     print_list(l2,printInt);
     
     /* Enumerate */
-    print_enum_list(iter(l1),printInt);
-
+    // print_enum_list(iter(l1),printInt);
+    Iterator it = iter(l1);
+    for (Enumerate* e = enumerate(it); e != NULL; e = enumerate(it))
+    {
+        printf("V[%ld] = %d\n", e->index, *((int*)e->obj));
+    }
+    
     GarbageCollector();
 }

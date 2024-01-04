@@ -30,10 +30,10 @@ List newList();
 
 /*
 Exemplo de uso:
-Enumerate * e = enumerate(__iterator);
-while (e)
+Iterator it = iter(Iterable i);
+for (Enumerate* e = enumerate(it); e != NULL; e = enumerate(it))
 {
-    e => (index, objeto)
+    e => (index, obj)
 }
  */
 Enumerate *enumerate(Iterator __iterator);
