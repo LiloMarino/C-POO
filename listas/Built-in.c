@@ -21,7 +21,7 @@ Iterable map(Mapper f, Iterable i)
 {
     List l = newList();
     Iterator it = iter(i);
-    for (Objeto obj = next(it); it != NULL; obj = next(it))
+    for (Objeto obj = next(it); obj != NULL; obj = next(it))
     {
         ((List)This(l))->append(f(obj));
     }
@@ -35,7 +35,7 @@ Iterable filter(Filter f, Iterable i)
 {
     List l = newList();
     Iterator it = iter(i);
-    for (Objeto obj = next(it); it != NULL; obj = next(it))
+    for (Objeto obj = next(it); obj != NULL; obj = next(it))
     {
         if (f(obj))
         {
@@ -51,7 +51,7 @@ Objeto reduce(Reduce f, Iterable i)
 {
     Objeto acumulador;
     Iterator it = iter(i);
-    for (Objeto obj = next(it); it != NULL; obj = next(it))
+    for (Objeto obj = next(it); obj != NULL; obj = next(it))
     {
         acumulador = f(acumulador,obj);
     }
