@@ -47,11 +47,11 @@ clean:
 
 # Regra para executar o programa
 run: all
-	cd $(OUTPUT) && ./$(PROJETO)
+	cd $(OUTPUT) && clear && ./$(PROJETO)
 
 # Regra para executar o programa com o Valgrind
 valgrind: all
-	cd $(OUTPUT) && valgrind --leak-check=full --show-leak-kinds=all ./$(PROJETO)
+	cd $(OUTPUT) && clear &&  valgrind --leak-check=full --show-leak-kinds=all ./$(PROJETO)
 
 # Comando para criar o arquivo zip
 zip: $(FONTES) $(HEADERS)
